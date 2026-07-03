@@ -6,11 +6,14 @@ Patch helper for Claude Desktop on Windows. It relaxes Claude Desktop's local mo
 
 This project is for **Claude Desktop**, not **Claude Code**.
 
+For a step-by-step Chinese setup guide, see: [Configuring third-party Anthropic-compatible models in Claude Desktop](docs/third-party-models.zh-CN.md).
+
 ## Contents
 
 - [Why This Exists](#why-this-exists)
 - [What It Does](#what-it-does)
 - [Compatible Model IDs](#compatible-model-ids)
+- [Chinese Setup Guide](docs/third-party-models.zh-CN.md)
 - [Example: Zhipu GLM-5.2](#example-zhipu-glm-52)
 - [Usage](#usage)
 - [Important Notes](#important-notes)
