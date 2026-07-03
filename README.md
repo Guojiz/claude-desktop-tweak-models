@@ -10,6 +10,7 @@ For a step-by-step Chinese setup guide, see: [Configuring third-party Anthropic-
 
 ## Contents
 
+- [Quick Start](#quick-start)
 - [Why This Exists](#why-this-exists)
 - [What It Does](#what-it-does)
 - [Compatible Model IDs](#compatible-model-ids)
@@ -20,6 +21,22 @@ For a step-by-step Chinese setup guide, see: [Configuring third-party Anthropic-
 - [Network Caveat](#network-caveat)
 - [Revert](#revert)
 - [License](#license)
+
+## Quick Start
+
+Open **PowerShell as Administrator**, then paste and run this one-liner:
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -Command "iex (irm https://raw.githubusercontent.com/Guojiz/claude-desktop-tweak-models/main/Run-Latest.ps1)"
+```
+
+The one-liner downloads the latest patch script into:
+
+```text
+%USERPROFILE%\.claude-desktop-tweak-models
+```
+
+Then it runs the patch from that local file path, so backups and repeat runs work normally.
 
 ## Why This Exists
 
@@ -71,7 +88,7 @@ Zhipu's Claude-compatible gateway documentation:
 
 ## Usage
 
-Open **PowerShell as Administrator** in this repository folder, then paste and run:
+If you already cloned this repository, open **PowerShell as Administrator** in this repository folder, then paste and run:
 
 ```powershell
 powershell -NoProfile -ExecutionPolicy Bypass -File .\Protect-Claude-Zhipu-GLM52.ps1
