@@ -6,11 +6,14 @@
 
 这个项目用于 **Claude Desktop**，不是 **Claude Code**。
 
+如果你想按步骤配置第三方模型，可以直接看：[在 Claude Desktop 中配置第三方 Anthropic 兼容模型](docs/third-party-models.zh-CN.md)。
+
 ## 目录
 
 - [开发原因](#开发原因)
 - [它能做什么](#它能做什么)
 - [兼容的模型 ID](#兼容的模型-id)
+- [第三方模型配置教程](docs/third-party-models.zh-CN.md)
 - [示例：智谱 GLM-5.2](#示例智谱-glm-52)
 - [使用方法](#使用方法)
 - [重要说明](#重要说明)
