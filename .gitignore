@@ -1,0 +1,29 @@
+# Local/runtime artifacts
+backups/
+logs/
+*.log
+__pycache__/
+*.pyc
+
+# Secrets and local config
+.env
+*.env
+*.key
+*.pem
+claude_desktop_config.json
+configLibrary/
+
+# Binary application packages/backups
+*.asar
+*.exe
+*.dll
+*.node
+*.msix
+*.appx
+*.zip
+
+# OS/editor files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
