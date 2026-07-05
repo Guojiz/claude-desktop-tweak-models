@@ -103,6 +103,7 @@ powershell -NoProfile -ExecutionPolicy Bypass -File .\Patch-Claude-ThirdParty-Mo
 - 如果 Apply Patch 请求管理员权限，请允许。Claude 的安装目录受 Windows 保护。
 - 如果 Claude 后续自动更新，补丁可能被覆盖，重新运行脚本即可。
 - 如果脚本提示找不到已知校验片段，说明 Claude Desktop 更新了打包代码，需要更新补丁匹配规则。
+- 如果模型能保存但发消息不回复，检查 VPN。实测推荐：VPN 开启，同时开启“中国大陆流量绕过 / 排除大陆流量”，让 `downloads.claude.ai` 可下载 Claude 运行时，让 `open.bigmodel.cn` 走国内线路。
 
 ## 许可
 
