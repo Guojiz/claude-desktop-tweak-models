@@ -2,11 +2,11 @@
 
 [中文说明](README.zh-CN.md) | English
 
-Small Windows helper for Claude Desktop. It relaxes Claude Desktop's local frontend validation for third-party Gateway / Mantle model IDs, so a provider can use its real model name, such as `glm-5.2`, instead of a route that must look like an Anthropic model.
+Small Windows helper for Claude Desktop. It relaxes Claude Desktop's local model ID validation for third-party Gateway / Mantle providers, so a provider can use its real model name, such as `glm-5.2`, instead of a route that must look like an Anthropic model.
 
-This project is for **Claude Desktop**, not Claude Code.
+This project is for **Claude Desktop**, not Claude Code. It is not a local gateway.
 
-## Quick Start
+## Fully Automatic
 
 Open PowerShell and run:
 
@@ -14,23 +14,26 @@ Open PowerShell and run:
 powershell -NoProfile -ExecutionPolicy Bypass -Command "iex (irm https://raw.githubusercontent.com/Guojiz/claude-desktop-tweak-models/main/Run-Latest.ps1)"
 ```
 
-The helper opens a small Windows UI. Click **Detect** to inspect your Claude Desktop installation, then **Apply Patch** to patch the frontend validation check. Windows may ask for administrator permission because Claude Desktop is installed under the protected Windows app package folder.
+The helper opens a small Windows UI. Click **Detect** to inspect your Claude Desktop installation, then **Apply Patch**. Windows may ask for administrator permission because Claude Desktop is installed under the protected Windows app package folder.
+
+After the patch finishes, reopen Claude Desktop and use Claude Desktop's own third-party inference settings.
 
 ## What It Does
 
 - Finds the installed Windows Claude Desktop package.
-- Searches Claude Desktop frontend JavaScript files under `ion-dist`.
-- Backs up only the frontend file(s) that contain the Gateway / Mantle model-route validation check.
-- Changes that local frontend check to accept custom model IDs.
+- Stops running Claude Desktop processes before editing protected files.
+- Searches frontend JavaScript files under `ion-dist`.
+- Patches the frontend Gateway / Mantle model-route validation check.
+- Patches the same validation check inside `app.asar`.
+- Repairs Electron ASAR integrity hash metadata when Claude reports a mismatch.
+- Backs up changed files under `backups/<Claude package name>/`.
 - Provides a simple UI with Detect, Apply Patch, and Restore buttons.
 - Does not store, print, or request any API key.
 
 ## What It Does Not Do
 
 - It does not create or run a local gateway.
-- It does not configure Zhipu, OpenAI-compatible, or Anthropic-compatible endpoints.
-- It does not modify `app.asar`.
-- It does not edit `Claude.exe` integrity metadata.
+- It does not configure Zhipu, OpenAI-compatible, or Anthropic-compatible endpoints for you.
 - It does not block `api.anthropic.com` in `hosts`.
 - It does not disable Claude Desktop, Microsoft Store, or system updates.
 
@@ -59,30 +62,32 @@ Zhipu's Claude-compatible gateway documentation:
 
 https://docs.bigmodel.cn/cn/guide/develop/claude/introduction
 
-## Run From A Clone
+## Console Commands
+
+Run from a clone:
 
 ```powershell
 powershell -NoProfile -ExecutionPolicy Bypass -File .\Protect-Claude-Zhipu-GLM52.ps1
 ```
 
-For a console-only check:
+Check status only:
 
 ```powershell
 powershell -NoProfile -ExecutionPolicy Bypass -File .\Protect-Claude-Zhipu-GLM52.ps1 -NoGui -DryRun
 ```
 
-To restore backed-up frontend files:
+Restore backups:
 
 ```powershell
 powershell -NoProfile -ExecutionPolicy Bypass -File .\Protect-Claude-Zhipu-GLM52.ps1 -NoGui -Revert
 ```
 
-## Notes
+## Troubleshooting
 
-- This modifies local installed Claude Desktop frontend files.
-- It is version-sensitive because Claude Desktop bundles minified JavaScript.
-- If Claude updates and the validation logic moves, rerun the helper or update the patch pattern.
-- Backups are saved under `backups/<Claude package name>/` and ignored by Git.
+- If Detect says Claude Desktop was not found, install Claude Desktop, open it once, then rerun the helper.
+- If Apply Patch asks for administrator permission, approve it. The installed package is protected by Windows.
+- If Claude updates later, rerun the helper because the patched files may be replaced.
+- If the script says no known validation snippet was found, Claude Desktop changed its bundled code and this patch pattern needs an update.
 
 ## License
 
