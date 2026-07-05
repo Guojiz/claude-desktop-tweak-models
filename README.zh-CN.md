@@ -8,15 +8,13 @@
 
 ## 全自动用法
 
-打开 PowerShell，运行：
-
-```powershell
-powershell -NoProfile -ExecutionPolicy Bypass -Command "iex (irm https://raw.githubusercontent.com/Guojiz/claude-desktop-tweak-models/main/Run-Latest.ps1)"
-```
+打开 PowerShell，运行仓库里的 `Run-Latest.ps1` 启动工具。
 
 脚本会打开一个小界面。先点 **Detect** 检测 Claude Desktop，再点 **Apply Patch** 自动修复。因为 Claude Desktop 安装在受保护的 Windows 应用目录里，系统可能会弹出管理员权限确认，请允许。
 
 补丁完成后，重新打开 Claude Desktop，在 Claude 自己的第三方推理设置里配置 provider。
+
+如果你想完整照着配置 GLM-5.2，请看：[GLM-5.2 接入 Claude Desktop 完整教程](docs/glm-5.2-claude-desktop-setup.zh-CN.md)。
 
 ## Developer Mode 顺序
 
@@ -65,11 +63,13 @@ powershell -NoProfile -ExecutionPolicy Bypass -Command "iex (irm https://raw.git
 ```text
 Provider: Gateway
 Gateway base URL: https://open.bigmodel.cn/api/anthropic
-Gateway auth scheme: x-api-key
+Gateway auth scheme: bearer
 Model ID: glm-5.2
 Display name: GLM-5.2
 Model discovery: off
 ```
+
+完整配置与排错请看：[GLM-5.2 接入 Claude Desktop 完整教程](docs/glm-5.2-claude-desktop-setup.zh-CN.md)。
 
 智谱官方 Claude 兼容文档：
 
