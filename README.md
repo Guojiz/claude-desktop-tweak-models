@@ -25,7 +25,7 @@ Recommended order:
 1. Open Claude Desktop once.
 2. Enable Developer Mode in Claude Desktop settings.
 3. Open the third-party inference / models / providers page once.
-4. Run this helper and click **Apply Patch**.
+4. Run this helper and click **Apply Patch**. The helper automatically closes running Claude Desktop processes before patching.
 5. Reopen Claude Desktop, then add or save your provider.
 
 If you already ran the helper first, that is also fine. Apply the patch, reopen Claude Desktop, enable Developer Mode, then configure the provider. The helper does not enable Developer Mode for you; it only patches Claude Desktop's local model ID validation.
@@ -33,7 +33,7 @@ If you already ran the helper first, that is also fine. Apply the patch, reopen 
 ## What It Does
 
 - Finds the installed Windows Claude Desktop package.
-- Stops running Claude Desktop processes before editing protected files.
+- Automatically closes running Claude Desktop processes before editing protected files.
 - Searches frontend JavaScript files under `ion-dist`.
 - Patches the frontend Gateway / Mantle model-route validation check.
 - Patches the same validation check inside `app.asar`.
