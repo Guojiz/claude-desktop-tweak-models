@@ -18,6 +18,18 @@ The helper opens a small Windows UI. Click **Detect** to inspect your Claude Des
 
 After the patch finishes, reopen Claude Desktop and use Claude Desktop's own third-party inference settings.
 
+## Developer Mode Order
+
+Recommended order:
+
+1. Open Claude Desktop once.
+2. Enable Developer Mode in Claude Desktop settings.
+3. Open the third-party inference / models / providers page once.
+4. Run this helper and click **Apply Patch**.
+5. Reopen Claude Desktop, then add or save your provider.
+
+If you already ran the helper first, that is also fine. Apply the patch, reopen Claude Desktop, enable Developer Mode, then configure the provider. The helper does not enable Developer Mode for you; it only patches Claude Desktop's local model ID validation.
+
 ## What It Does
 
 - Finds the installed Windows Claude Desktop package.
@@ -34,6 +46,7 @@ After the patch finishes, reopen Claude Desktop and use Claude Desktop's own thi
 
 - It does not create or run a local gateway.
 - It does not configure Zhipu, OpenAI-compatible, or Anthropic-compatible endpoints for you.
+- It does not enable Developer Mode for you.
 - It does not block `api.anthropic.com` in `hosts`.
 - It does not disable Claude Desktop, Microsoft Store, or system updates.
 
