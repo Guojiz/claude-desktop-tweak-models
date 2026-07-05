@@ -80,20 +80,22 @@ https://docs.bigmodel.cn/cn/guide/develop/claude/introduction
 从仓库运行：
 
 ```powershell
-powershell -NoProfile -ExecutionPolicy Bypass -File .\Protect-Claude-Zhipu-GLM52.ps1
+powershell -NoProfile -ExecutionPolicy Bypass -File .\Patch-Claude-ThirdParty-Models.ps1
 ```
 
 只检测状态：
 
 ```powershell
-powershell -NoProfile -ExecutionPolicy Bypass -File .\Protect-Claude-Zhipu-GLM52.ps1 -NoGui -DryRun
+powershell -NoProfile -ExecutionPolicy Bypass -File .\Patch-Claude-ThirdParty-Models.ps1 -NoGui -DryRun
 ```
 
 恢复备份：
 
 ```powershell
-powershell -NoProfile -ExecutionPolicy Bypass -File .\Protect-Claude-Zhipu-GLM52.ps1 -NoGui -Revert
+powershell -NoProfile -ExecutionPolicy Bypass -File .\Patch-Claude-ThirdParty-Models.ps1 -NoGui -Revert
 ```
+
+`Protect-Claude-Zhipu-GLM52.ps1` 只作为早期 GLM-5.2 测试场景留下的兼容旧文件名保留。
 
 ## 排错
 
