@@ -3,7 +3,7 @@ $ErrorActionPreference = 'Stop'
 $repo = 'Guojiz/claude-desktop-tweak-models'
 $branch = 'main'
 $installDir = Join-Path $env:USERPROFILE '.claude-desktop-tweak-models'
-$scriptName = 'Protect-Claude-Zhipu-GLM52.ps1'
+$scriptName = 'Patch-Claude-ThirdParty-Models.ps1'
 $scriptUrl = "https://raw.githubusercontent.com/$repo/$branch/$scriptName"
 $scriptPath = Join-Path $installDir $scriptName
 
