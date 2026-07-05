@@ -25,7 +25,7 @@ powershell -NoProfile -ExecutionPolicy Bypass -Command "iex (irm https://raw.git
 1. 先打开一次 Claude Desktop。
 2. 在 Claude Desktop 设置里开启 Developer Mode。
 3. 进入 third-party inference / models / providers 相关页面一次。
-4. 再运行本工具，点击 **Apply Patch**。
+4. 再运行本工具，点击 **Apply Patch**。工具会在补丁前自动关闭正在运行的 Claude Desktop 进程。
 5. 重新打开 Claude Desktop，然后添加或保存 provider。
 
 如果你已经先运行了本工具，也没关系。先完成补丁，重新打开 Claude Desktop，再开启 Developer Mode 并配置 provider。这个工具不会替你开启 Developer Mode；它只修补 Claude Desktop 本地的模型 ID 校验。
@@ -33,7 +33,7 @@ powershell -NoProfile -ExecutionPolicy Bypass -Command "iex (irm https://raw.git
 ## 它会做什么
 
 - 自动寻找已安装的 Windows 版 Claude Desktop。
-- 修改前先关闭正在运行的 Claude Desktop 进程。
+- 修改受保护文件前，自动关闭正在运行的 Claude Desktop 进程。
 - 搜索 `ion-dist` 里的前端 JavaScript 文件。
 - 修补前端 Gateway / Mantle 模型路由校验。
 - 修补 `app.asar` 里的同一层主进程校验。
