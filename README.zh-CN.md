@@ -2,11 +2,11 @@
 
 中文说明 | [English](README.md)
 
-这是一个 Windows 版 Claude Desktop 小工具。它只放开 Claude Desktop 前端里的第三方模型名校验，让 Developer Mode 里的 Gateway / Mantle provider 可以填写服务商真实模型名，例如 `glm-5.2`，而不是必须伪装成 `claude-*` 或 `anthropic/claude-*`。
+这是一个 Windows 版 Claude Desktop 小工具。它放开 Claude Desktop 本地的第三方模型 ID 校验，让 Developer Mode 里的 Gateway / Mantle provider 可以填写服务商真实模型名，例如 `glm-5.2`，不用伪装成 `claude-*` 或 `anthropic/claude-*`。
 
-本项目用于 **Claude Desktop**，不是 Claude Code。
+本项目用于 **Claude Desktop**，不是 Claude Code。它也不是本地 Gateway。
 
-## 快速开始
+## 全自动用法
 
 打开 PowerShell，运行：
 
@@ -14,23 +14,26 @@
 powershell -NoProfile -ExecutionPolicy Bypass -Command "iex (irm https://raw.githubusercontent.com/Guojiz/claude-desktop-tweak-models/main/Run-Latest.ps1)"
 ```
 
-脚本会打开一个简单界面。先点 **Detect** 检测 Claude Desktop，再点 **Apply Patch** 应用补丁。因为 Claude Desktop 位于受保护的 Windows 应用目录，应用补丁时系统可能会弹出管理员权限确认。
+脚本会打开一个小界面。先点 **Detect** 检测 Claude Desktop，再点 **Apply Patch** 自动修复。因为 Claude Desktop 安装在受保护的 Windows 应用目录里，系统可能会弹出管理员权限确认，请允许。
+
+补丁完成后，重新打开 Claude Desktop，在 Claude 自己的第三方推理设置里配置 provider。
 
 ## 它会做什么
 
 - 自动寻找已安装的 Windows 版 Claude Desktop。
+- 修改前先关闭正在运行的 Claude Desktop 进程。
 - 搜索 `ion-dist` 里的前端 JavaScript 文件。
-- 只备份包含 Gateway / Mantle 模型路由校验的前端文件。
-- 把这个本地前端校验改成允许自定义模型 ID。
+- 修补前端 Gateway / Mantle 模型路由校验。
+- 修补 `app.asar` 里的同一层主进程校验。
+- 当 Claude 报 Electron ASAR 完整性哈希不匹配时，自动修复相关哈希元数据。
+- 在 `backups/<Claude package name>/` 下备份被修改的文件。
 - 提供 Detect、Apply Patch、Restore 三个界面按钮。
 - 不保存、不打印、也不要求输入 API key。
 
 ## 它不会做什么
 
-- 不创建或运行本地网关。
+- 不创建或运行本地 Gateway。
 - 不替你配置智谱、OpenAI-compatible 或 Anthropic-compatible 接口。
-- 不修改 `app.asar`。
-- 不修改 `Claude.exe` 完整性元数据。
 - 不写入 hosts 屏蔽 `api.anthropic.com`。
 - 不禁用 Claude Desktop、Microsoft Store 或系统更新。
 
@@ -39,8 +42,8 @@ powershell -NoProfile -ExecutionPolicy Bypass -Command "iex (irm https://raw.git
 补丁完成后，在 Claude Desktop 里操作：
 
 1. 打开 Settings。
-2. 如有需要，启用 Developer Mode。
-3. 进入 third-party inference / models / providers 一类页面。
+2. 如果需要，启用 Developer Mode。
+3. 进入 third-party inference / models / providers 相关页面。
 4. 用 Claude Desktop 原生界面添加你的 provider。
 5. 填写服务商提供的 base URL、鉴权方式、API key 和真实模型 ID。
 
@@ -59,30 +62,32 @@ Model discovery: off
 
 https://docs.bigmodel.cn/cn/guide/develop/claude/introduction
 
-## 从仓库运行
+## 控制台命令
+
+从仓库运行：
 
 ```powershell
 powershell -NoProfile -ExecutionPolicy Bypass -File .\Protect-Claude-Zhipu-GLM52.ps1
 ```
 
-只做控制台检测：
+只检测状态：
 
 ```powershell
 powershell -NoProfile -ExecutionPolicy Bypass -File .\Protect-Claude-Zhipu-GLM52.ps1 -NoGui -DryRun
 ```
 
-恢复备份的前端文件：
+恢复备份：
 
 ```powershell
 powershell -NoProfile -ExecutionPolicy Bypass -File .\Protect-Claude-Zhipu-GLM52.ps1 -NoGui -Revert
 ```
 
-## 注意
+## 排错
 
-- 这个工具会修改本地已安装的 Claude Desktop 前端文件。
-- Claude Desktop 使用压缩后的前端 JavaScript，所以这个补丁对版本敏感。
-- 如果 Claude 更新后校验逻辑移动，需要重新运行脚本或更新补丁匹配规则。
-- 备份保存在 `backups/<Claude package name>/`，不会提交到 Git。
+- 如果 Detect 显示找不到 Claude Desktop，先安装 Claude Desktop，打开一次，再重新运行脚本。
+- 如果 Apply Patch 请求管理员权限，请允许。Claude 的安装目录受 Windows 保护。
+- 如果 Claude 后续自动更新，补丁可能被覆盖，重新运行脚本即可。
+- 如果脚本提示找不到已知校验片段，说明 Claude Desktop 更新了打包代码，需要更新补丁匹配规则。
 
 ## 许可
 
