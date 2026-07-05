@@ -2,7 +2,7 @@
 
 这是一份从零开始的配置教程：安装 Claude Desktop 之后，如何开启 Developer Mode，运行本项目补丁工具，然后把智谱 BigModel / GLM-5.2 配到 Claude Desktop 的 third-party inference 里。
 
-本页来自一次真实排错过程。重点不是“随便填一个 OpenAI 接口”，而是弄清楚 Claude Desktop 到底需要什么协议。
+本页来自一次真实排错过程。重点不是“随便填一个 OpenAI 接口”，而是弄清楚 Claude Desktop 到底需要什么协议，以及当前网络出口是否适合同时访问 Claude 和 BigModel。
 
 ## 0. 先看结论
 
@@ -28,6 +28,25 @@ https://open.bigmodel.cn/api/paas/v4/chat/completions/v1/messages
 
 这个地址不存在，所以会报 404。
 
+还有一个很重要的结论：**网络出口会影响是否能正常使用。**
+
+Claude Desktop 本身可能需要下载 Claude Code / VM 运行时，例如访问：
+
+```text
+https://downloads.claude.ai
+```
+
+而智谱 BigModel 的 `open.bigmodel.cn` 是国内站，通常更适合中国大陆网络出口。如果你使用 VPN，推荐开启类似下面的选项：
+
+```text
+中国大陆流量绕过
+排除中国大陆流量
+Bypass Mainland China
+China mainland traffic direct
+```
+
+也就是说：Claude 相关下载可以走 VPN，BigModel 国内接口最好不要被强行走到境外出口。实测中，关闭 VPN 会导致 Claude 运行时下载失败；全局 VPN 又可能让 BigModel 接口不稳定。开启“大陆流量绕过”后，可以在 VPN 打开的状态下完成配置并让 GLM-5.2 正常回复。
+
 ## 1. 安装 Claude Desktop
 
 先安装 Windows 版 Claude Desktop，并至少打开一次。
@@ -52,7 +71,31 @@ Settings → Developer / Advanced
 
 开启后，重新打开 Claude Desktop。然后进入 third-party inference / models / providers 页面一次，让 Claude 生成相关配置。
 
-## 3. 运行本项目补丁工具
+## 3. 先确认网络出口
+
+建议在运行和测试前先确认这两类地址都能访问：
+
+```text
+https://downloads.claude.ai
+https://open.bigmodel.cn
+```
+
+推荐网络状态：
+
+```text
+VPN: 开启
+中国大陆流量绕过/排除大陆流量: 开启
+```
+
+如果没有这个分流选项，可以分别尝试：
+
+1. 开 VPN，让 Claude Desktop 先完成 Claude Code / VM 运行时下载。
+2. 如果 BigModel 请求失败，再切到国内直连或开启大陆流量绕过。
+3. 强制退出 Claude Desktop，再重新打开后重试。
+
+注意：Claude Desktop 有时会在第一次进入 Cowork / Code 或发送第一条消息时下载运行时。日志里如果出现 `downloads.claude.ai`、`claude-code-releases`、`rootfs.vhdx.zst`，说明它还在准备运行环境，不一定是模型配置错误。
+
+## 4. 运行本项目补丁工具
 
 打开 PowerShell，直接运行：
 
@@ -70,7 +113,7 @@ powershell -NoProfile -ExecutionPolicy Bypass -Command "iex (irm https://raw.git
 
 这个工具不会帮你配置 API Key，也不会创建本地网关。它只修补 Claude Desktop 本地对第三方模型 ID 的限制，让你可以填写真实模型名，例如 `glm-5.2`。
 
-## 4. 配置 BigModel / GLM-5.2
+## 5. 配置 BigModel / GLM-5.2
 
 进入 Claude Desktop 的 third-party inference 设置页。
 
@@ -131,7 +174,7 @@ Default for tier: 按需要开启
 
 也可以尝试打开 **Offer 1M-context variant**，但最稳的方式是手动添加 `glm-5.2[1m]`。
 
-## 5. 常见错误与原因
+## 6. 常见错误与原因
 
 ### 错误一：404，路径里出现 `/chat/completions/v1/messages`
 
@@ -183,7 +226,30 @@ Model ID: glm-5.2
 
 处理方式：重新运行本项目工具，再点 **Apply Patch**。
 
-### 错误四：Cowork / Code 提示 Virtual Machine Platform not available
+### 错误四：模型能保存，但发消息一直转圈或报错
+
+先不要急着改模型 ID。实测这个状态可能是网络或 Claude 本地运行时没有准备好。
+
+检查方向：
+
+1. VPN 是否开启。
+2. VPN 是否开启了“中国大陆流量绕过 / 排除大陆流量”。
+3. Claude Desktop 是否能访问 `downloads.claude.ai` 下载 Claude Code / VM 运行时。
+4. BigModel 请求是否被全局 VPN 强制走境外出口。
+5. 强制退出 Claude Desktop，再在正确网络状态下重新打开。
+
+如果日志里出现类似下面的内容，说明是 Claude 自己的运行时下载失败，不是 `glm-5.2` 配置失败：
+
+```text
+No path to Claude code executable
+Download failed
+Host Claude Code binary not available
+Request error: net::ERR_CONNECTION_TIMED_OUT
+```
+
+处理方式：打开 VPN，让 Claude 先完成 `downloads.claude.ai` 的下载；同时开启大陆流量绕过，让 `open.bigmodel.cn` 走国内线路。然后强制退出 Claude Desktop，再重新打开测试。
+
+### 错误五：Cowork / Code 提示 Virtual Machine Platform not available
 
 这个问题和 GLM-5.2 接口配置无关。
 
@@ -200,7 +266,7 @@ dism.exe /online /enable-feature /featurename:HypervisorPlatform /all /norestart
 
 这不影响普通聊天模型配置，但会影响 Claude 的本地 Cowork / Code 工作区。
 
-## 6. 为什么本项目仍然需要
+## 7. 为什么本项目仍然需要
 
 智谱 BigModel 已经提供 Anthropic-compatible endpoint，因此它可以直接接 Claude Desktop 的 Gateway。
 
@@ -222,7 +288,7 @@ https://open.bigmodel.cn/api/anthropic/v1/messages
 GLM-5.2
 ```
 
-## 7. 最终推荐配置
+## 8. 最终推荐配置
 
 普通版本：
 
@@ -247,7 +313,14 @@ Display name: GLM-5.2 1M
 Tier alias: opus
 ```
 
-## 8. 相关文档
+推荐网络状态：
+
+```text
+VPN: 开启
+中国大陆流量绕过/排除大陆流量: 开启
+```
+
+## 9. 相关文档
 
 智谱 BigModel Claude / Anthropic 兼容文档：
 
