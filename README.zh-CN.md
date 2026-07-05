@@ -18,6 +18,18 @@ powershell -NoProfile -ExecutionPolicy Bypass -Command "iex (irm https://raw.git
 
 补丁完成后，重新打开 Claude Desktop，在 Claude 自己的第三方推理设置里配置 provider。
 
+## Developer Mode 顺序
+
+推荐顺序：
+
+1. 先打开一次 Claude Desktop。
+2. 在 Claude Desktop 设置里开启 Developer Mode。
+3. 进入 third-party inference / models / providers 相关页面一次。
+4. 再运行本工具，点击 **Apply Patch**。
+5. 重新打开 Claude Desktop，然后添加或保存 provider。
+
+如果你已经先运行了本工具，也没关系。先完成补丁，重新打开 Claude Desktop，再开启 Developer Mode 并配置 provider。这个工具不会替你开启 Developer Mode；它只修补 Claude Desktop 本地的模型 ID 校验。
+
 ## 它会做什么
 
 - 自动寻找已安装的 Windows 版 Claude Desktop。
@@ -34,6 +46,7 @@ powershell -NoProfile -ExecutionPolicy Bypass -Command "iex (irm https://raw.git
 
 - 不创建或运行本地 Gateway。
 - 不替你配置智谱、OpenAI-compatible 或 Anthropic-compatible 接口。
+- 不替你开启 Developer Mode。
 - 不写入 hosts 屏蔽 `api.anthropic.com`。
 - 不禁用 Claude Desktop、Microsoft Store 或系统更新。
 
