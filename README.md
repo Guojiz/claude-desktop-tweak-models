@@ -80,20 +80,22 @@ https://docs.bigmodel.cn/cn/guide/develop/claude/introduction
 Run from a clone:
 
 ```powershell
-powershell -NoProfile -ExecutionPolicy Bypass -File .\Protect-Claude-Zhipu-GLM52.ps1
+powershell -NoProfile -ExecutionPolicy Bypass -File .\Patch-Claude-ThirdParty-Models.ps1
 ```
 
 Check status only:
 
 ```powershell
-powershell -NoProfile -ExecutionPolicy Bypass -File .\Protect-Claude-Zhipu-GLM52.ps1 -NoGui -DryRun
+powershell -NoProfile -ExecutionPolicy Bypass -File .\Patch-Claude-ThirdParty-Models.ps1 -NoGui -DryRun
 ```
 
 Restore backups:
 
 ```powershell
-powershell -NoProfile -ExecutionPolicy Bypass -File .\Protect-Claude-Zhipu-GLM52.ps1 -NoGui -Revert
+powershell -NoProfile -ExecutionPolicy Bypass -File .\Patch-Claude-ThirdParty-Models.ps1 -NoGui -Revert
 ```
+
+`Protect-Claude-Zhipu-GLM52.ps1` is kept only as a legacy compatibility filename from the original GLM-5.2 test case.
 
 ## Troubleshooting
 
