@@ -2,99 +2,87 @@
 
 [中文说明](README.zh-CN.md) | English
 
-Patch and first-run helper for Claude Desktop on Windows. It relaxes Claude Desktop's local model ID validation so third-party model settings can use custom model IDs from Anthropic-compatible gateways, instead of only accepting model names that look like Anthropic's own Claude models.
+Small Windows helper for Claude Desktop. It relaxes Claude Desktop's local frontend validation for third-party Gateway / Mantle model IDs, so a provider can use its real model name, such as `glm-5.2`, instead of a route that must look like an Anthropic model.
 
-This project is for **Claude Desktop**, not **Claude Code**.
-
-For a step-by-step Chinese setup guide, see: [Configuring third-party Anthropic-compatible models in Claude Desktop](docs/third-party-models.zh-CN.md).
+This project is for **Claude Desktop**, not Claude Code.
 
 ## Quick Start
 
-Open PowerShell, then paste and run this one-liner:
+Open PowerShell and run:
 
 ```powershell
 powershell -NoProfile -ExecutionPolicy Bypass -Command "iex (irm https://raw.githubusercontent.com/Guojiz/claude-desktop-tweak-models/main/Run-Latest.ps1)"
 ```
 
-You do not need to start PowerShell as Administrator. The helper requests UAC permission at the beginning when it needs to modify Claude Desktop's protected Windows app package.
-
-If Claude Desktop is not installed or Windows does not expose the package, the helper shows an English setup prompt and can download and run the official Windows installer from Anthropic. If automatic install fails, it opens the public download page:
-
-<https://claude.ai/download>
+The helper opens a small Windows UI. Click **Detect** to inspect your Claude Desktop installation, then **Apply Patch** to patch the frontend validation check. Windows may ask for administrator permission because Claude Desktop is installed under the protected Windows app package folder.
 
 ## What It Does
 
-- Finds the installed Claude Desktop Windows package.
-- Downloads and runs the official Windows installer when Claude Desktop is missing and you approve the prompt.
-- Creates a minimal Claude user config folder when Claude has not been configured yet.
-- Saves an English first-run guide beside the Claude user config.
-- Allows Gateway / Mantle model IDs that do not match Claude / Anthropic naming patterns.
-- Keeps Electron ASAR integrity metadata valid after patching.
-- Disables Claude Desktop's internal updater so the patch is not immediately overwritten.
-- Adds a hosts block for `api.anthropic.com`.
-- Disables Microsoft Store automatic app downloads through Windows policy.
-- Does not store, print, or require an API key.
+- Finds the installed Windows Claude Desktop package.
+- Searches Claude Desktop frontend JavaScript files under `ion-dist`.
+- Backs up only the frontend file(s) that contain the Gateway / Mantle model-route validation check.
+- Changes that local frontend check to accept custom model IDs.
+- Provides a simple UI with Detect, Apply Patch, and Restore buttons.
+- Does not store, print, or request any API key.
 
-## First-Run Setup
+## What It Does Not Do
 
-After the helper opens Claude Desktop:
+- It does not create or run a local gateway.
+- It does not configure Zhipu, OpenAI-compatible, or Anthropic-compatible endpoints.
+- It does not modify `app.asar`.
+- It does not edit `Claude.exe` integrity metadata.
+- It does not block `api.anthropic.com` in `hosts`.
+- It does not disable Claude Desktop, Microsoft Store, or system updates.
+
+## Configure Your Provider
+
+After patching, open Claude Desktop:
 
 1. Open Settings.
-2. Enable Developer Mode if it is not already enabled.
+2. Enable Developer Mode if needed.
 3. Open the third-party inference / models / providers section.
-4. Add a Gateway provider.
-5. Fill in the gateway details from your provider.
+4. Add your provider using Claude Desktop's own UI.
+5. Enter the provider's base URL, auth scheme, API key, and real model ID.
 
-Example:
+Example for a Claude-compatible Zhipu endpoint:
 
-- Provider: `Gateway`
-- Gateway base URL: `https://open.bigmodel.cn/api/anthropic`
-- Gateway auth scheme: `x-api-key`
-- Model ID: `glm-5.2`
-- Display name: `GLM-5.2`
-- Model discovery: off
+```text
+Provider: Gateway
+Gateway base URL: https://open.bigmodel.cn/api/anthropic
+Gateway auth scheme: x-api-key
+Model ID: glm-5.2
+Display name: GLM-5.2
+Model discovery: off
+```
 
 Zhipu's Claude-compatible gateway documentation:
 
-<https://docs.bigmodel.cn/cn/guide/develop/claude/introduction>
+https://docs.bigmodel.cn/cn/guide/develop/claude/introduction
 
-## Usage From a Clone
-
-If you already cloned this repository, open PowerShell in this repository folder, then run:
+## Run From A Clone
 
 ```powershell
 powershell -NoProfile -ExecutionPolicy Bypass -File .\Protect-Claude-Zhipu-GLM52.ps1
 ```
 
-The script searches for the installed Claude Desktop Windows package, prepares first-run user files, patches Claude, updates integrity hashes, applies update protection, and restarts Claude.
+For a console-only check:
 
-## Important Notes
-
-- This modifies the locally installed Claude Desktop application package.
-- It is version-sensitive and was built against the Windows MSIX Claude Desktop package layout.
-- A future Claude Desktop release may rename minified functions or move validation logic.
-- If Claude is updated or repaired, rerun the script.
-- The script creates local backups under `backups/`; those backups are intentionally ignored by Git.
-- The script cannot safely enter or store your provider API key. Enter keys only in Claude Desktop or your trusted provider UI.
-
-## Revert
-
-The script saves original files in `backups/<Claude package name>/` before patching. To revert manually, stop Claude and restore:
-
-- `Claude.exe.original` to the installed `Claude.exe`
-- `app.asar.original` to the installed `app.asar`
-
-Then remove the hosts block marked:
-
-```text
-# Claude auto-update block - keep patched third-party model setup
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File .\Protect-Claude-Zhipu-GLM52.ps1 -NoGui -DryRun
 ```
 
-and change or delete:
+To restore backed-up frontend files:
 
-```text
-HKLM:\SOFTWARE\Policies\Microsoft\WindowsStore\AutoDownload
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File .\Protect-Claude-Zhipu-GLM52.ps1 -NoGui -Revert
 ```
+
+## Notes
+
+- This modifies local installed Claude Desktop frontend files.
+- It is version-sensitive because Claude Desktop bundles minified JavaScript.
+- If Claude updates and the validation logic moves, rerun the helper or update the patch pattern.
+- Backups are saved under `backups/<Claude package name>/` and ignored by Git.
 
 ## License
 
