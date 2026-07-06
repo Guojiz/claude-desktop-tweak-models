@@ -16,7 +16,11 @@
 
 ## 快速用法
 
-打开 PowerShell，运行仓库里的 `Run-Latest.ps1` 启动工具。
+打开 PowerShell，直接运行这一行命令：
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -Command "iex (irm 'https://raw.githubusercontent.com/Guojiz/claude-desktop-tweak-models/main/Run-Latest.ps1')"
+```
 
 工具会打开一个小界面。先点 **Detect** 检测 Claude Desktop，再点 **Apply Patch** 应用修改。系统可能会弹出管理员权限确认，请允许。
 
@@ -29,7 +33,7 @@
 1. 先打开一次 Claude Desktop。
 2. 在 Claude Desktop 设置里开启 Developer Mode。
 3. 进入 third-party inference / models / providers 相关页面一次。
-4. 运行本工具，点击 **Apply Patch**。
+4. 运行上面的一行命令，点击 **Apply Patch**。
 5. 重新打开 Claude Desktop，然后添加或保存 provider。
 
 如果你已经先运行了本工具，也没关系。先完成修改，重新打开 Claude Desktop，再开启 Developer Mode 并配置 provider。
@@ -81,7 +85,7 @@ https://docs.bigmodel.cn/cn/guide/develop/claude/introduction
 
 ## 控制台用法
 
-从仓库运行主脚本即可：
+如果你已经克隆了仓库，也可以直接运行主脚本：
 
 ```powershell
 .\Patch-Claude-ThirdParty-Models.ps1
