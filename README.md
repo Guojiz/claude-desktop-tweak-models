@@ -16,7 +16,7 @@ This project is for **Claude Desktop on Windows**. It is not Claude Code, not Cl
 
 ## Project relationship notice
 
-This project is not an official project of Anthropic, Claude, or any third-party model provider, and it is not part of their open-source software. Names such as Claude, Anthropic, Gateway, Mantle, and Zhipu are used only to describe compatibility targets, configuration scenarios, and user interface labels. Users are responsible for checking that their own use complies with the terms of the software and model services they choose to use.
+This project is not an official project of Anthropic, Claude, or any third-party model provider, and it is not part of the official Claude Desktop or Claude Code codebase. Names such as Claude, Anthropic, Gateway, Mantle, and Zhipu are used only to describe compatibility targets, configuration scenarios, and user interface labels. Users are responsible for checking that their own use complies with the terms of the software and model services they choose to use.
 
 ## Quick use
 
