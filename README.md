@@ -14,6 +14,10 @@ This project is for **Claude Desktop on Windows**. It is not Claude Code, not Cl
 - It does not enable Developer Mode for you.
 - Third-party model endpoints, pricing, reliability, and terms are controlled by their providers.
 
+## Project relationship notice
+
+This project is not an official project of Anthropic, Claude, or any third-party model provider, and it is not part of their open-source software. Names such as Claude, Anthropic, Gateway, Mantle, and Zhipu are used only to describe compatibility targets, configuration scenarios, and user interface labels. Users are responsible for checking that their own use complies with the terms of the software and model services they choose to use.
+
 ## Quick use
 
 Open PowerShell and run the one-line launcher from this repository:
