@@ -16,7 +16,7 @@
 
 ## 项目关系声明
 
-本项目不是 Anthropic、Claude 或任何第三方模型服务商的官方项目，也不是它们开源软件的一部分。仓库中出现的 Claude、Anthropic、Gateway、Mantle、智谱等名称，仅用于说明兼容对象、配置场景和用户操作界面。使用者应自行确认自己的使用方式符合相关软件和模型服务条款。
+本项目是一个非官方的本地兼容性补丁，用于个人研究、兼容性测试和本地实验。它不替代 Claude 订阅，不提供免费访问，不包含或分发 Claude Desktop 本体，也不提供任何 API key。本项目不是 Anthropic、Claude 或任何第三方模型服务商的官方项目，也不是 Claude Desktop / Claude Code 官方代码库的一部分。仓库中出现的 Claude、Anthropic、Gateway、Mantle、智谱等名称，仅用于说明兼容对象、配置场景和用户操作界面。使用者应自行确认自己的使用方式是否符合 Claude Desktop、Anthropic 以及相关第三方模型服务条款。
 
 ## 快速用法
 
