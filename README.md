@@ -16,7 +16,11 @@ This project is for **Claude Desktop on Windows**. It is not Claude Code, not Cl
 
 ## Quick use
 
-Open PowerShell and run `Run-Latest.ps1` from this repository.
+Open PowerShell and run the one-line launcher from this repository:
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -Command "iex (irm 'https://raw.githubusercontent.com/Guojiz/claude-desktop-tweak-models/main/Run-Latest.ps1')"
+```
 
 The helper opens a small Windows UI. Click **Detect** to inspect your Claude Desktop installation, then **Apply Patch** to apply the change. Windows may ask for administrator permission.
 
@@ -27,7 +31,7 @@ After it finishes, reopen Claude Desktop and configure your provider in Claude D
 1. Open Claude Desktop once.
 2. Enable Developer Mode in Claude Desktop settings.
 3. Open the third-party inference / models / providers page once.
-4. Run this helper and click **Apply Patch**.
+4. Run the one-line launcher above and click **Apply Patch**.
 5. Reopen Claude Desktop, then add or save your provider.
 
 If you already ran the helper first, that is also fine. Apply the change, reopen Claude Desktop, enable Developer Mode, then configure the provider.
@@ -77,7 +81,7 @@ https://docs.bigmodel.cn/cn/guide/develop/claude/introduction
 
 ## Console use
 
-Run the main script from a local clone:
+If you cloned the repository locally, you can also run the main script directly:
 
 ```powershell
 .\Patch-Claude-ThirdParty-Models.ps1
