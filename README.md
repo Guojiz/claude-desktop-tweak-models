@@ -4,7 +4,9 @@
 
 A **Windows-only helper for Claude Desktop**. It relaxes Claude Desktop's local model ID validation for third-party Gateway / Mantle providers, so a provider can use its real model name, such as `glm-5.2`, instead of a route that must look like an Anthropic model.
 
-This project is for **Claude Desktop on Windows**. It is not Claude Code, not Claude Web, and not a local gateway.
+This project is for **Claude Desktop on Windows**. It is not Claude Code and not Claude Web.
+
+The patch is still the simplest path when Claude Desktop accepts real third-party model IDs. If a Claude Desktop update breaks the patch, use the optional Hanako-style local router and expose the real upstream model as a Claude-looking model ID. See [docs/hanako-style-router.zh-CN.md](docs/hanako-style-router.zh-CN.md).
 
 ## Scope
 
@@ -40,6 +42,12 @@ After it finishes, reopen Claude Desktop and configure your provider in Claude D
 
 If you already ran the helper first, that is also fine. Apply the change, reopen Claude Desktop, enable Developer Mode, then configure the provider.
 
+## Optional local router
+
+The optional router under `router/` follows openhanako's provider routing shape: provider catalog, provider registry, composite `{ provider, id }` model refs, and a runtime model projection. Claude sees a configurable model ID, while the router keeps the real upstream provider/model internally.
+
+Use it when you want multiple providers, or when a Claude Desktop update makes real third-party model IDs fail again. The status page tells you exactly which Model ID to paste into Claude Desktop.
+
 ## What it does
 
 - Finds the installed Windows Claude Desktop package.
@@ -52,7 +60,7 @@ If you already ran the helper first, that is also fine. Apply the change, reopen
 
 ## What it does not do
 
-- It does not create or run a local gateway.
+- The patch tool itself does not create or run a local gateway. The optional router under `router/` is separate.
 - It does not configure Zhipu, OpenAI-compatible, or Anthropic-compatible endpoints for you.
 - It does not enable Developer Mode for you.
 - It does not edit `hosts`.
