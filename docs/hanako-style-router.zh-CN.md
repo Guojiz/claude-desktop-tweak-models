@@ -4,6 +4,23 @@
 
 补丁仍然有价值：当 Claude Desktop 的前端校验已经被放开时，你可以直接把真实模型 ID 填进 Claude，例如 `glm-5.2`。但 Claude Desktop 更新后，补丁可能失效；这时 router 可以把同一个真实模型临时暴露成 Claude 接受的模型名，例如 `claude-sonnet-4-5`，内部仍然转发到 `zhipu/glm-5.2`。
 
+## 当前状态
+
+这是实验性功能。本轮只做了：
+
+- Node 语法检查。
+- 示例配置 JSON 解析检查。
+- 本地 `/status` 响应检查。
+- 本地 `/v1/models` 响应检查。
+
+本轮还没有完成：
+
+- Claude Desktop 真实端到端发消息测试。
+- 智谱、DashScope、OpenAI、OpenRouter 等真实上游 provider 请求测试。
+- 多 provider 自动发现、自动选择最强模型的完整测试矩阵。
+
+因此它目前应该标为 **experimental / untested with real providers**。它是通用化底座，不是已经完成的 Hanako 级通用模型路由器。
+
 ## 设计来源
 
 路由核心按 openhanako 的 provider routing 模式迁移：
@@ -14,6 +31,17 @@
 - `model-sync`: 把 provider 的模型列表投影成 router runtime catalog。
 
 Claude 适配层只做一件事：把 Claude 看到的 model id 映射回内部的 `{ provider, id }`。
+
+## 通用化目标
+
+目标是逐步做成类似 Hanako 的通用 provider router：
+
+- 支持多个 provider 同时存在，例如 Zhipu、DashScope、OpenAI、Anthropic、OpenRouter、DeepSeek、Gemini-compatible、Ollama 等。
+- 每个 provider 都有独立的 base URL、鉴权方式、headers、模型列表和能力元数据。
+- Claude 侧只看到本地 router 暴露的模型 ID；内部始终使用 `{ provider, id }`。
+- 当 Claude Desktop 补丁有效时，可以暴露真实模型名。
+- 当 Claude Desktop 补丁失效时，可以自动或手动伪装成 `claude-*` 模型名。
+- 后续再加入模型发现、最大版本识别、按上下文/输出/能力自动选择模型。
 
 ## 配置
 
