@@ -8,6 +8,8 @@
 
 补丁有效时，最简单的方式仍然是直接填写真实第三方模型 ID。若 Claude Desktop 更新导致补丁失效，可以使用可选的 Hanako-style 本地 router，把真实上游模型伪装成 Claude 接受的模型名。见 [docs/hanako-style-router.zh-CN.md](docs/hanako-style-router.zh-CN.md)。
 
+注意：`router/` 目前是实验性通用化底座。本轮只验证了本地语法、`/status` 和 `/v1/models`，还没有完成真实 Claude Desktop 端到端和真实上游 provider 请求测试。
+
 ## 使用边界
 
 - 本工具只处理 Claude Desktop 本地的模型 ID 校验问题。
