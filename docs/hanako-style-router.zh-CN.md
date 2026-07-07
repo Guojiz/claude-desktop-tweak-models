@@ -91,8 +91,12 @@ Routes to: zhipu/glm-5.2
 
 ```text
 Base URL: http://127.0.0.1:4318
+Auth scheme: bearer
+API key: local-router-secret-change-me
 Model ID: claude-sonnet-4-5
 ```
+
+`API key` 要和 `router.config.json` 里的 `routerApiKey` 一致。如果你只在本机测试，也可以把 `routerApiKey` 设为空字符串，这样 router 不再检查本地访问密钥。
 
 如果你确认破解补丁仍然有效，可以把 `patchStatus` 改成 `patched`，或者把单个模型的 `claude.mode` 改成 `real`，然后状态页会提示你填真实模型 ID。
 
