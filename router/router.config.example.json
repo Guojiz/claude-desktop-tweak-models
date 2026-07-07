@@ -1,0 +1,76 @@
+{
+  "host": "127.0.0.1",
+  "port": 4318,
+  "routerApiKey": "local-router-secret-change-me",
+  "defaultModel": "claude-sonnet-4-5",
+  "claudeExposure": {
+    "mode": "auto",
+    "patchStatus": "unknown",
+    "spoofModel": "claude-sonnet-4-5",
+    "spoofModels": [
+      "claude-sonnet-4-5",
+      "claude-opus-4-1",
+      "claude-haiku-3-5"
+    ]
+  },
+  "providers": {
+    "zhipu": {
+      "api": "openai-completions",
+      "baseUrl": "https://open.bigmodel.cn/api/paas/v4",
+      "auth": {
+        "scheme": "bearer",
+        "env": "BIGMODEL_API_KEY"
+      },
+      "models": [
+        {
+          "id": "glm-5.2",
+          "name": "GLM-5.2",
+          "claude": {
+            "mode": "auto",
+            "spoofModel": "claude-sonnet-4-5"
+          }
+        },
+        {
+          "id": "glm-5.2-1m",
+          "upstreamModel": "glm-5.2[1m]",
+          "name": "GLM-5.2 1M",
+          "context": 1048576,
+          "maxOutput": 8192,
+          "claude": {
+            "mode": "auto",
+            "spoofModel": "claude-opus-4-1"
+          }
+        }
+      ]
+    },
+    "dashscope": {
+      "api": "openai-completions",
+      "baseUrl": "https://dashscope.aliyuncs.com/compatible-mode/v1",
+      "auth": {
+        "scheme": "bearer",
+        "env": "DASHSCOPE_API_KEY"
+      },
+      "models": [
+        {
+          "id": "qwen-max",
+          "name": "Qwen Max",
+          "claude": {
+            "mode": "provider-ref"
+          }
+        },
+        {
+          "id": "qwen-plus",
+          "name": "Qwen Plus",
+          "claude": {
+            "mode": "provider-ref"
+          }
+        }
+      ]
+    },
+    "chatgpt-plan-placeholder": {
+      "kind": "chatgpt",
+      "api": "chatgpt-plan",
+      "note": "Reserved for no-API-key ChatGPT plan adapters. A provider plugin is required before this can send requests."
+    }
+  }
+}
