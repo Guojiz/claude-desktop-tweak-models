@@ -4,7 +4,9 @@
 
 这是一个 **Windows 版 Claude Desktop 第三方模型兼容性辅助工具**。它用于放开 Claude Desktop 本地的模型 ID 校验，让 Developer Mode 里的 Gateway / Mantle provider 可以填写服务商真实模型名，例如 `glm-5.2`，不用伪装成 `claude-*` 或 `anthropic/claude-*`。
 
-本项目只面向 **Windows 版 Claude Desktop**。它不是 Claude Code，也不是网页 Claude，更不是本地 Gateway。
+本项目只面向 **Windows 版 Claude Desktop**。它不是 Claude Code，也不是网页 Claude。
+
+补丁有效时，最简单的方式仍然是直接填写真实第三方模型 ID。若 Claude Desktop 更新导致补丁失效，可以使用可选的 Hanako-style 本地 router，把真实上游模型伪装成 Claude 接受的模型名。见 [docs/hanako-style-router.zh-CN.md](docs/hanako-style-router.zh-CN.md)。
 
 ## 使用边界
 
@@ -42,6 +44,12 @@ powershell -NoProfile -ExecutionPolicy Bypass -Command "iex (irm 'https://raw.gi
 
 如果你已经先运行了本工具，也没关系。先完成修改，重新打开 Claude Desktop，再开启 Developer Mode 并配置 provider。
 
+## 可选本地 router
+
+`router/` 下的可选 router 按 openhanako 的 provider routing 结构实现：provider catalog、provider registry、`{ provider, id }` 复合模型引用，以及 runtime model projection。Claude 看到的是可配置的模型 ID；router 内部仍然保存真实 provider/model。
+
+当你需要多个 provider，或者 Claude Desktop 更新导致真实第三方模型 ID 再次保存失败时，可以使用它。启动后的状态页会告诉你应该把哪个 Model ID 填进 Claude Desktop。
+
 ## 它会做什么
 
 - 自动寻找已安装的 Windows 版 Claude Desktop。
@@ -54,7 +62,7 @@ powershell -NoProfile -ExecutionPolicy Bypass -Command "iex (irm 'https://raw.gi
 
 ## 它不会做什么
 
-- 不创建或运行本地 Gateway。
+- 补丁工具本身不创建或运行本地 Gateway；`router/` 下的可选 router 是单独功能。
 - 不替你配置智谱、OpenAI-compatible 或 Anthropic-compatible 接口。
 - 不替你开启 Developer Mode。
 - 不写入 hosts。
