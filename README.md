@@ -6,6 +6,8 @@ A **Windows-only helper for Claude Desktop**. It relaxes Claude Desktop's local 
 
 This project is for **Claude Desktop on Windows**. It is not Claude Code and not Claude Web.
 
+> **Using Claude Code instead?** We recommend [ClawGod](https://github.com/0Chencc/clawgod), which offers more features and is better maintained.
+
 The patch is still the simplest path when Claude Desktop accepts real third-party model IDs. If a Claude Desktop update breaks the patch, use the optional Hanako-style local router and expose the real upstream model as a Claude-looking model ID. See [docs/hanako-style-router.zh-CN.md](docs/hanako-style-router.zh-CN.md).
 
 Note: `router/` is currently an experimental universal-routing foundation. In this round it has only been checked locally for syntax, `/status`, and `/v1/models`; real Claude Desktop end-to-end traffic and real upstream provider calls have not been tested yet.
