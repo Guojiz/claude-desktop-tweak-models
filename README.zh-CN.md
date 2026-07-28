@@ -6,7 +6,7 @@
 
 本项目只面向 **Windows 版 Claude Desktop**。它不是 Claude Code，也不是网页 Claude。
 
-> **如果你使用的是 Claude Code：** 推荐 [ClawGod](https://github.com/0Chencc/clawgod)，它提供更多功能，维护也更完善。
+> **请按使用端选择：** 本项目专用于 **Windows 版 Claude Desktop**；[ClawGod](https://github.com/0Chencc/clawgod) 专用于 **Claude Code**，功能范围更广，维护也更完善。两者面向不同产品，并非替代关系。
 
 补丁有效时，最简单的方式仍然是直接填写真实第三方模型 ID。若 Claude Desktop 更新导致补丁失效，可以使用可选的 Hanako-style 本地 router，把真实上游模型伪装成 Claude 接受的模型名。见 [docs/hanako-style-router.zh-CN.md](docs/hanako-style-router.zh-CN.md)。
 
