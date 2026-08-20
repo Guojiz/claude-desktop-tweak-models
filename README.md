@@ -2,6 +2,20 @@
 
 [中文说明](README.zh-CN.md) | English
 
+<p align="center">
+  <a href="https://guojiz.github.io/"><img alt="Website" src="https://img.shields.io/badge/website-guojiz.github.io-111111?style=flat-square"></a>
+  <a href="https://github.com/Guojiz/Sponsors"><img alt="Sponsor" src="https://img.shields.io/badge/sponsor-support-111111?style=flat-square"></a>
+</p>
+
+<p align="center">
+  <a href="https://guojiz.github.io/"><strong>Author website</strong></a>
+  · <a href="https://x.com/guojizh">X</a>
+  · <a href="https://space.bilibili.com/3493114115263006">Bilibili</a>
+  · <a href="https://youtube.com/@guojizh">YouTube</a>
+  · <a href="https://github.com/Guojiz/Sponsors">Sponsor</a>
+</p>
+
+
 A **Windows-only helper for Claude Desktop**. It relaxes Claude Desktop's local model ID validation for third-party Gateway / Mantle providers, so a provider can use its real model name, such as `glm-5.2`, instead of a route that must look like an Anthropic model.
 
 This project is for **Claude Desktop on Windows**. It is not Claude Code and not Claude Web.
@@ -128,6 +142,29 @@ Issues, pull requests, and compatibility notes are welcome, especially for:
 - Windows version differences;
 - clearer screenshots or troubleshooting notes;
 - detection, restore, and documentation improvements.
+
+## Website and other links
+
+No separate product site is required for this repository. The public face of the work is the author website, this GitHub repo, and the projects below.
+
+| | |
+| --- | --- |
+| **Author website** | https://guojiz.github.io/ |
+| **X** | https://x.com/guojizh |
+| **Bilibili** | https://space.bilibili.com/3493114115263006 |
+| **YouTube** | https://youtube.com/@guojizh |
+| **Sponsor** | https://github.com/Guojiz/Sponsors |
+
+### Other open-source projects
+
+- [GitLearnOS](https://guojiz.github.io/gitlearnos/) — learner-owned Git memory
+- [Word Snap](https://guojiz.github.io/word-snap/) — bilingual vocabulary matching
+- [AI Subtitle Extractor](https://github.com/Guojiz/ai-subtitle-extractor)
+- [Design Master](https://github.com/Guojiz/design-master)
+- [AI Video Studio](https://github.com/Guojiz/comfyui-minimax-h3-studio)
+- [llm-provider-compat](https://github.com/Guojiz/llm-provider-compat)
+- [Claude Desktop Tweak Models](https://github.com/Guojiz/claude-desktop-tweak-models)
+- All projects: [github.com/Guojiz](https://github.com/Guojiz)
 
 ## License
 

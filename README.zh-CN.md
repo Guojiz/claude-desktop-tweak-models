@@ -2,6 +2,20 @@
 
 中文说明 | [English](README.md)
 
+<p align="center">
+  <a href="https://guojiz.github.io/"><img alt="官网" src="https://img.shields.io/badge/官网-guojiz.github.io-111111?style=flat-square"></a>
+  <a href="https://github.com/Guojiz/Sponsors"><img alt="赞助" src="https://img.shields.io/badge/赞助-支持-111111?style=flat-square"></a>
+</p>
+
+<p align="center">
+  <a href="https://guojiz.github.io/"><strong>作者官网</strong></a>
+  · <a href="https://x.com/guojizh">X</a>
+  · <a href="https://space.bilibili.com/3493114115263006">哔哩哔哩</a>
+  · <a href="https://youtube.com/@guojizh">YouTube</a>
+  · <a href="https://github.com/Guojiz/Sponsors">赞助</a>
+</p>
+
+
 这是一个 **Windows 版 Claude Desktop 第三方模型兼容性辅助工具**。它用于放开 Claude Desktop 本地的模型 ID 校验，让 Developer Mode 里的 Gateway / Mantle provider 可以填写服务商真实模型名，例如 `glm-5.2`，不用伪装成 `claude-*` 或 `anthropic/claude-*`。
 
 本项目只面向 **Windows 版 Claude Desktop**。它不是 Claude Code，也不是网页 Claude。
@@ -133,6 +147,29 @@ https://docs.bigmodel.cn/cn/guide/develop/claude/introduction
 - Windows 版本差异；
 - 更清晰的教程截图或排错说明；
 - 检测逻辑、恢复逻辑和文档改进。
+
+## 官网与其它推广
+
+这个仓库可以没有独立产品站。对外入口是作者官网、本 GitHub 仓库，以及下面这些项目。
+
+| | |
+| --- | --- |
+| **作者官网** | https://guojiz.github.io/ |
+| **X** | https://x.com/guojizh |
+| **哔哩哔哩** | https://space.bilibili.com/3493114115263006 |
+| **YouTube** | https://youtube.com/@guojizh |
+| **赞助** | https://github.com/Guojiz/Sponsors |
+
+### 其它开源项目
+
+- [GitLearnOS](https://guojiz.github.io/gitlearnos/) — 学习者拥有的 Git 记忆
+- [Word Snap](https://guojiz.github.io/word-snap/) — 双语单词匹配
+- [AI Subtitle Extractor](https://github.com/Guojiz/ai-subtitle-extractor)
+- [Design Master](https://github.com/Guojiz/design-master)
+- [AI Video Studio](https://github.com/Guojiz/comfyui-minimax-h3-studio)
+- [llm-provider-compat](https://github.com/Guojiz/llm-provider-compat)
+- [Claude Desktop Tweak Models](https://github.com/Guojiz/claude-desktop-tweak-models)
+- 全部项目：[github.com/Guojiz](https://github.com/Guojiz)
 
 ## 许可
 
